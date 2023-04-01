@@ -43,7 +43,6 @@ public class BasePage {
 
 		protected void forwardToPage(WebDriver driver) {
 			driver.navigate().forward();
-			;
 		}
 
 		protected void refreshToPage(WebDriver driver) {
