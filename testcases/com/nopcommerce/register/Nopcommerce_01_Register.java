@@ -6,12 +6,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Nopcommerce_01_Register {
+import commons.BaseTest;
+
+public class Nopcommerce_01_Register extends BaseTest {
 	private WebDriver driver;
 
 	@Parameters("browser")
 	@BeforeClass
 	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName);
+		
 	}
 
 	@Test
