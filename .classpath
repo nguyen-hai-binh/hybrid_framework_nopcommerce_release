@@ -11,7 +11,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libraries/client-combined-3.141.59-sources.jar"/>
-	<classpathentry kind="lib" path="libraries/selenium-server-standalone-3.141.59.jar"/>
+	<classpathentry kind="lib" path="libraries/selenium-server-standalone-3.141.59.jar" sourcepath="D:/01-Automation/Online_Class_28/07-Java Hybrid Framework Release/hybrid_framework_nopcommerce_release/libraries/client-combined-3.141.59-sources.jar"/>
 	<classpathentry kind="lib" path="libraries/testng-6.14.3.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/bcpkix-jdk15on-1.64.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/bcprov-jdk15on-1.64.jar"/>
