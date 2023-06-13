@@ -39,7 +39,8 @@ public class Nopcommerce_01_Login extends BaseTest {
 		registerPage.inputToPasswordTextbox(password);
 		registerPage.inputToConfirmPasswordTextbox(confirmPassword);
 		registerPage.clickToRegisterButton();
-		registerPage.clickToContinueButton();
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		homePage = registerPage.clickToContinueButton();
 	}
 
 	@Test
@@ -69,6 +70,7 @@ public class Nopcommerce_01_Login extends BaseTest {
 	public void Login_04_Empty_Password_And_Email_Registered() {
 		loginPage = homePage.clickToLoginLink();
 		loginPage.inputToEmailAddressTextbox(emailAdress);
+		loginPage.inputToPasswordTextbox("");
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
@@ -87,8 +89,8 @@ public class Nopcommerce_01_Login extends BaseTest {
 		loginPage = homePage.clickToLoginLink();
 		loginPage.inputToEmailAddressTextbox(emailAdress);
 		loginPage.inputToPasswordTextbox(password);
-		loginPage.clickToLoginButton();
-		homePage = loginPage.isDisplayMyAccountLink();
+		homePage = loginPage.clickToLoginButton();
+		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
 	@AfterClass

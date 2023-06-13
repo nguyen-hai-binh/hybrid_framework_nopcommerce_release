@@ -78,8 +78,9 @@ public class RegisterPageObject extends BasePage {
 		sendkeyToElement(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX, confirmPassword);
 	}
 
-	public void clickToContinueButton() {
+	public HomePageObject clickToContinueButton() {
 		waitForElementClickable(driver,RegisterPageUI.CONTINUE_BUTTON);
-		clickToElement(driver, RegisterPageUI.CONTINUE_BUTTON);	
+		clickToElement(driver, RegisterPageUI.CONTINUE_BUTTON);
+		return PageGeneratorManager.getHomePage(driver);
 	}
 }

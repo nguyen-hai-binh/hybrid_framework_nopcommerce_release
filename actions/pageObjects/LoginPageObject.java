@@ -13,9 +13,10 @@ public class LoginPageObject extends BasePage {
 		this.driver = driver;
 	}
 
-	public void clickToLoginButton() {
+	public HomePageObject clickToLoginButton() {
 		waitForElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
 		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
+		return PageGeneratorManager.getHomePage(driver);
 	}
 
 	public String getErrorMessageEmailAddress() {
@@ -36,11 +37,5 @@ public class LoginPageObject extends BasePage {
 	public void inputToPasswordTextbox(String password) {
 		waitForElementVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
 		sendkeyToElement(driver, LoginPageUI.PASSWORD_TEXTBOX, password);
-	}
-
-	public HomePageObject isDisplayMyAccountLink() {
-		waitForElementVisible(driver, HomePageUI.MY_ACCOUNT_LINK);
-		isElementDisplayed(driver, HomePageUI.MY_ACCOUNT_LINK);
-		return null;
 	}
 }
