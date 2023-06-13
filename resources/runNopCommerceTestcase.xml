@@ -3,7 +3,8 @@
 	<test name="Run on Chrome">
 		<parameter name="browser" value="chrome" />
 		<classes>
-			<class name="com.nopcommerce.register.Nopcommerce_01_Register " />
+			<class name="com.nopcommerce.register.Nopcommerce_01_Register" />
+			<class name="com.nopcommerce.login.Nopcommerce_01_Login" />
 		</classes>
 	</test>
 </suite>
