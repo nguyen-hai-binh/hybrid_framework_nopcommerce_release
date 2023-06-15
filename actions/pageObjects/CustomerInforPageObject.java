@@ -4,9 +4,9 @@ import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
 
-public class MyAccountPageObject extends BasePage{
+public class CustomerInforPageObject extends BasePage{
 	private WebDriver driver;
-	public MyAccountPageObject(WebDriver driver) {
+	public CustomerInforPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
 
