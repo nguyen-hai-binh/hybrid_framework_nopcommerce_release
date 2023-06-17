@@ -8,6 +8,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import pageObjects.CustomerInforPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.PageGeneratorManager;
@@ -18,6 +19,7 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;
 	private LoginPageObject loginPage;
+	private CustomerInforPageObject customerInforPage;
 	private String firstName, lastName, emailAdress, password, confirmPassword;
 
 	@Parameters("browser")
@@ -52,11 +54,32 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 
 	@Test
 	public void MyAccount_01_Update_Customer_Info() {
-	
+		customerInforPage = homePage.clickToMyAccountLink();
+		Assert.assertTrue(customerInforPage.isYourPersonalDetailsDisplayed());
+		customerInforPage.checkToFemaleCheckboxRadio("Female");
+		customerInforPage.inputToFirstNameTextbox("Automation");
+		customerInforPage.inputToLastNameTextbox("FC");
+		customerInforPage.selectDay("1");
+		customerInforPage.selectMonth("January");
+		customerInforPage.selectYear("1990");
+		customerInforPage.inputToEmailAddress("automationfc@gmail.com");
+		customerInforPage.inputToCompanyName("AutomationFC");
+		customerInforPage.clickToSaveButton();
+		Assert.assertEquals(customerInforPage.getUpdateInforSuccessMessage(), "The customer info has been updated successfully.");
+		Assert.assertTrue(customerInforPage.isFemaleSelected());
+		Assert.assertEquals(customerInforPage.getInforFirstNameTextbox(), "Automation");
+		Assert.assertEquals(customerInforPage.getInforLastNameTextbox(), "FC");
+		Assert.assertEquals(customerInforPage.getInforDate(), "1");
+		Assert.assertEquals(customerInforPage.getInforMonth(), "January");
+		Assert.assertEquals(customerInforPage.getInforYear(), "1990");
+		Assert.assertEquals(customerInforPage.getInforEmail(), "automationfc@gmail.com");
+		Assert.assertEquals(customerInforPage.getInforCompanyName(), "AutomationFC");
 	}
 
 	@Test
 	public void MyAccount_02_Add_Addresses() {
+		addressesPage = customerInforPage.clickToAddressesLink();
+		addressesPage.clickToAddNewButton();
 		
 	}
 

@@ -19,6 +19,4 @@ public class PageGeneratorManager {
 		return new CustomerInforPageObject(driver);
 	}
 	
-	
-	
 }
