@@ -38,4 +38,10 @@ public class LoginPageObject extends BasePage {
 		waitForElementVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
 		sendkeyToElement(driver, LoginPageUI.PASSWORD_TEXTBOX, password);
 	}
+	
+	public HomePageObject loginAccount (WebDriver driver, String emailAddress, String password) {
+		inputToEmailAddressTextbox(emailAddress);
+		inputToPasswordTextbox(password);
+		return clickToLoginButton();
+	}
 }

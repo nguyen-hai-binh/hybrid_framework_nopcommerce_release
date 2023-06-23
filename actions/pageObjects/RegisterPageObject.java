@@ -1,6 +1,7 @@
 package pageObjects;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import commons.BasePage;
 import pageUIs.RegisterPageUI;
@@ -82,5 +83,15 @@ public class RegisterPageObject extends BasePage {
 		waitForElementClickable(driver,RegisterPageUI.CONTINUE_BUTTON);
 		clickToElement(driver, RegisterPageUI.CONTINUE_BUTTON);
 		return PageGeneratorManager.getHomePage(driver);
+	}
+	
+	public HomePageObject registerAccount(WebDriver driver, String firstName, String lastName, String emailAddress, String password, String confirmPassword) {
+		inputToFirstNameTextbox(firstName);
+		inputToLastNameTextbox(lastName);
+		inputToEmailTextbox(emailAddress);
+		inputToPasswordTextbox(password);
+		inputToConfirmPasswordTextbox(confirmPassword);
+		clickToRegisterButton();
+		return clickToContinueButton();
 	}
 }

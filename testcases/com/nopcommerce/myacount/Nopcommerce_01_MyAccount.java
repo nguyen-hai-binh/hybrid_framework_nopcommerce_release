@@ -8,6 +8,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import pageObjects.AddressesPageObject;
+import pageObjects.ChangePasswordPageObject;
+import pageObjects.CustomerInfoPageObject;
 import pageObjects.CustomerInforPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
@@ -19,7 +22,9 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;
 	private LoginPageObject loginPage;
-	private CustomerInforPageObject customerInforPage;
+	private CustomerInfoPageObject customerInfoPage;
+	private AddressesPageObject addressesPage;
+	private ChangePasswordPageObject changePasswordPage;
 	private String firstName, lastName, emailAdress, password, confirmPassword;
 
 	@Parameters("browser")
@@ -35,56 +40,69 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 
 		// Register a account
 		registerPage = homePage.clickToRegisterLink();
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox(confirmPassword);
-		registerPage.clickToRegisterButton();
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-		homePage = registerPage.clickToContinueButton();
+		registerPage.registerAccount(driver, firstName, lastName, emailAdress, password, confirmPassword);
 		
 		//Login a account
 		loginPage = homePage.clickToLoginLink();
-		loginPage.inputToEmailAddressTextbox(emailAdress);
-		loginPage.inputToPasswordTextbox(password);
-		homePage = loginPage.clickToLoginButton();
-		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
+		loginPage.loginAccount(driver, emailAdress, password);
 	}
 
 	@Test
 	public void MyAccount_01_Update_Customer_Info() {
-		customerInforPage = homePage.clickToMyAccountLink();
-		Assert.assertTrue(customerInforPage.isYourPersonalDetailsDisplayed());
-		customerInforPage.checkToFemaleCheckboxRadio("Female");
-		customerInforPage.inputToFirstNameTextbox("Automation");
-		customerInforPage.inputToLastNameTextbox("FC");
-		customerInforPage.selectDay("1");
-		customerInforPage.selectMonth("January");
-		customerInforPage.selectYear("1990");
-		customerInforPage.inputToEmailAddress("automationfc@gmail.com");
-		customerInforPage.inputToCompanyName("AutomationFC");
-		customerInforPage.clickToSaveButton();
-		Assert.assertEquals(customerInforPage.getUpdateInforSuccessMessage(), "The customer info has been updated successfully.");
-		Assert.assertTrue(customerInforPage.isFemaleSelected());
-		Assert.assertEquals(customerInforPage.getInforFirstNameTextbox(), "Automation");
-		Assert.assertEquals(customerInforPage.getInforLastNameTextbox(), "FC");
-		Assert.assertEquals(customerInforPage.getInforDate(), "1");
-		Assert.assertEquals(customerInforPage.getInforMonth(), "January");
-		Assert.assertEquals(customerInforPage.getInforYear(), "1990");
-		Assert.assertEquals(customerInforPage.getInforEmail(), "automationfc@gmail.com");
-		Assert.assertEquals(customerInforPage.getInforCompanyName(), "AutomationFC");
+		customerInfoPage = homePage.clickToMyAccountLink();
+		Assert.assertTrue(customerInfoPage.isYourPersonalDetailsDisplayed());
+		customerInfoPage.checkToFemaleCheckboxRadio("Female");
+		customerInfoPage.inputToFirstNameTextbox("Automation");
+		customerInfoPage.inputToLastNameTextbox("FC");
+		customerInfoPage.selectDay("1");
+		customerInfoPage.selectMonth("January");
+		customerInfoPage.selectYear("1990");
+		customerInfoPage.inputToEmailAddress("automationfc@gmail.com");
+		customerInfoPage.inputToCompanyName("AutomationFC");
+		customerInfoPage.clickToSaveButton();
+		Assert.assertEquals(customerInfoPage.getSuccessMessageUpdateInfor(), "The customer info has been updated successfully.");
+		Assert.assertTrue(customerInfoPage.isFemaleSelected());
+		Assert.assertEquals(customerInfoPage.getInforFirstNameTextbox(), "Automation");
+		Assert.assertEquals(customerInfoPage.getInforLastNameTextbox(), "FC");
+		Assert.assertEquals(customerInfoPage.getInforDate(), "1");
+		Assert.assertEquals(customerInfoPage.getInforMonth(), "January");
+		Assert.assertEquals(customerInfoPage.getInforYear(), "1990");
+		Assert.assertEquals(customerInfoPage.getInforEmail(), "automationfc@gmail.com");
+		Assert.assertEquals(customerInfoPage.getInforCompanyName(), "AutomationFC");
 	}
 
 	@Test
 	public void MyAccount_02_Add_Addresses() {
-		addressesPage = customerInforPage.clickToAddressesLink();
+		addressesPage = customerInfoPage.openAddressesPage(driver);
 		addressesPage.clickToAddNewButton();
-		
+		addressesPage.inputFirstNameTextbox("Automation");
+		addressesPage.inputLastNameTextbox("FC");
+		addressesPage.inputEmailAddressTextbox("automationfc.vn@gmail.com");
+		addressesPage.inputCompanyTextbox("Automation FC");
+		addressesPage.selectACountry("VietNam");
+		addressesPage.selectAState("Other");
+		addressesPage.inputCityTextbox("Da Nang");
+		addressesPage.inputAddress1Textbox("123/04 Le Lai"); 
+		addressesPage.inputAddress2Textbox("234/05 Hai Phong"); 
+		addressesPage.inputZipTextbox("550000");
+		addressesPage.inputPhoneNumberTextbox("0123456789");
+		addressesPage.inputFaxNumberTextbox("0987654321");
+		addressesPage.clickToSaveButton();
+		Assert.assertEquals(addressesPage.getSuccessMessageUpdateAddress(), "The new address has been added successfully.");
+		Assert.assertEquals(addressesPage.getNameValue, "Automation FC");
+		Assert.assertEquals(addressesPage.getEmailValue, "automationfc.vn@gmail.com");
+		Assert.assertEquals(addressesPage.getPhoneValue, "0123456789");
+		Assert.assertEquals(addressesPage.getFaxValue, "0987654321");
+		Assert.assertEquals(addressesPage.getCompanyValue, "Automation FC");
+		Assert.assertEquals(addressesPage.getAddress1Value, "123/04 Le Lai");
+		Assert.assertEquals(addressesPage.getAddress2Value, "234/05 Hai Phong");
+		Assert.assertEquals(addressesPage.getStateAndZipValue, "Ha Noi, 550000");
+		Assert.assertEquals(addressesPage.getCountryValue, "Viet Nam");
 	}
 
 	@Test
 	public void MyAccount_03_Change_Password() {
+	changePasswordPage = addressesPage.openChangePasswordPage(driver);
 	
 	}
 
