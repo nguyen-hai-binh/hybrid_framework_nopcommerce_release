@@ -1,5 +1,7 @@
 package com.nopcommerce.myacount;
 
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -14,6 +16,7 @@ import pageObjects.CustomerInfoPageObject;
 import pageObjects.CustomerInforPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
+import pageObjects.MyProductReviewsPageObject;
 import pageObjects.PageGeneratorManager;
 import pageObjects.RegisterPageObject;
 
@@ -25,6 +28,7 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 	private CustomerInfoPageObject customerInfoPage;
 	private AddressesPageObject addressesPage;
 	private ChangePasswordPageObject changePasswordPage;
+	private MyProductReviewsPageObject myProductReviewPage;
 	private String firstName, lastName, emailAdress, password, confirmPassword;
 
 	@Parameters("browser")
@@ -41,8 +45,8 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 		// Register a account
 		registerPage = homePage.clickToRegisterLink();
 		registerPage.registerAccount(driver, firstName, lastName, emailAdress, password, confirmPassword);
-		
-		//Login a account
+
+		// Login a account
 		loginPage = homePage.clickToLoginLink();
 		loginPage.loginAccount(driver, emailAdress, password);
 	}
@@ -51,44 +55,44 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 	public void MyAccount_01_Update_Customer_Info() {
 		customerInfoPage = homePage.clickToMyAccountLink();
 		Assert.assertTrue(customerInfoPage.isYourPersonalDetailsDisplayed());
-		customerInfoPage.checkToFemaleCheckboxRadio("Female");
-		customerInfoPage.inputToFirstNameTextbox("Automation");
-		customerInfoPage.inputToLastNameTextbox("FC");
+		customerInfoPage.selectToFemaleRadiobox("Female");
+		customerInfoPage.enterFirstNameTextbox("Automation");
+		customerInfoPage.enterLastNameTextbox("FC");
 		customerInfoPage.selectDay("1");
 		customerInfoPage.selectMonth("January");
 		customerInfoPage.selectYear("1990");
-		customerInfoPage.inputToEmailAddress("automationfc@gmail.com");
-		customerInfoPage.inputToCompanyName("AutomationFC");
+		customerInfoPage.enterEmailAddress("automationfc@gmail.com");
+		customerInfoPage.enterCompanyName("AutomationFC");
 		customerInfoPage.clickToSaveButton();
-		Assert.assertEquals(customerInfoPage.getSuccessMessageUpdateInfor(), "The customer info has been updated successfully.");
+		Assert.assertEquals(customerInfoPage.getNotificationSuccessMessage(), "The customer info has been updated successfully.");
 		Assert.assertTrue(customerInfoPage.isFemaleSelected());
-		Assert.assertEquals(customerInfoPage.getInforFirstNameTextbox(), "Automation");
-		Assert.assertEquals(customerInfoPage.getInforLastNameTextbox(), "FC");
-		Assert.assertEquals(customerInfoPage.getInforDate(), "1");
-		Assert.assertEquals(customerInfoPage.getInforMonth(), "January");
-		Assert.assertEquals(customerInfoPage.getInforYear(), "1990");
-		Assert.assertEquals(customerInfoPage.getInforEmail(), "automationfc@gmail.com");
-		Assert.assertEquals(customerInfoPage.getInforCompanyName(), "AutomationFC");
+		Assert.assertEquals(customerInfoPage.getFirstNameAttributeValue(), "Automation");
+		Assert.assertEquals(customerInfoPage.getLastNameAttributeValue(), "FC");
+		Assert.assertEquals(customerInfoPage.getDateAttributeValue(), "1");
+		Assert.assertEquals(customerInfoPage.getMonthAttributeValue(), "January");
+		Assert.assertEquals(customerInfoPage.getYearAttributeValue(), "1990");
+		Assert.assertEquals(customerInfoPage.getEmailAttributeValue(), "automationfc@gmail.com");
+		Assert.assertEquals(customerInfoPage.getCompanyNameAttributeValue(), "AutomationFC");
 	}
 
 	@Test
 	public void MyAccount_02_Add_Addresses() {
 		addressesPage = customerInfoPage.openAddressesPage(driver);
 		addressesPage.clickToAddNewButton();
-		addressesPage.inputFirstNameTextbox("Automation");
-		addressesPage.inputLastNameTextbox("FC");
-		addressesPage.inputEmailAddressTextbox("automationfc.vn@gmail.com");
-		addressesPage.inputCompanyTextbox("Automation FC");
+		addressesPage.enterFirstNameTextbox("Automation");
+		addressesPage.enterLastNameTextbox("FC");
+		addressesPage.enterEmailAddressTextbox("automationfcvn@gmail.com");
+		addressesPage.enterCompanyTextbox("Automation FC");
 		addressesPage.selectACountry("VietNam");
 		addressesPage.selectAState("Other");
-		addressesPage.inputCityTextbox("Da Nang");
-		addressesPage.inputAddress1Textbox("123/04 Le Lai"); 
-		addressesPage.inputAddress2Textbox("234/05 Hai Phong"); 
-		addressesPage.inputZipTextbox("550000");
-		addressesPage.inputPhoneNumberTextbox("0123456789");
-		addressesPage.inputFaxNumberTextbox("0987654321");
+		addressesPage.enterCityTextbox("Da Nang");
+		addressesPage.enterAddress1Textbox("123/04 Le Lai");
+		addressesPage.enterAddress2Textbox("234/05 Hai Phong");
+		addressesPage.enterZipTextbox("550000");
+		addressesPage.enterPhoneNumberTextbox("0123456789");
+		addressesPage.enterFaxNumberTextbox("0987654321");
 		addressesPage.clickToSaveButton();
-		Assert.assertEquals(addressesPage.getSuccessMessageUpdateAddress(), "The new address has been added successfully.");
+		Assert.assertEquals(addressesPage.getNotificationSuccessMessage(), "The new address has been added successfully.");
 		Assert.assertEquals(addressesPage.getNameValue, "Automation FC");
 		Assert.assertEquals(addressesPage.getEmailValue, "automationfc.vn@gmail.com");
 		Assert.assertEquals(addressesPage.getPhoneValue, "0123456789");
@@ -102,13 +106,37 @@ public class Nopcommerce_01_MyAccount extends BaseTest {
 
 	@Test
 	public void MyAccount_03_Change_Password() {
-	changePasswordPage = addressesPage.openChangePasswordPage(driver);
-	
+		changePasswordPage = addressesPage.openChangePasswordPage(driver);
+		changePasswordPage.enterOldPasswordTextbox(password);
+		changePasswordPage.enterNewPasswordTextbox("987654321");
+		changePasswordPage.enterConfirmPasswordTextbox("987654321");
+		changePasswordPage.clickToChangePasswordButton();
+		Assert.assertEquals(changePasswordPage.getNotificationSuccessMessage(), "Password was changed");
+		homePage = changePasswordPage.clickToLogoNopCommerce();
+		loginPage = homePage.clickToLoginLink();
+		
+		// Login with old password
+		loginPage.enterEmailTextbox("automationfc@gmail.com");
+		loginPage.enterPasswordTextbox(password);
+		loginPage.clickToLoginButton();
+		Assert.assertEquals(loginPage.getErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+		
+		// Login with new password
+		loginPage.enterEmailTextbox("automationfc@gmail.com");
+		loginPage.enterPasswordTextbox("987654321");
+		homePage = loginPage.clickToLoginButton();
+		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
+		customerInfoPage = homePage.clickToMyAccountLink();
+		Assert.assertEqual(customerInfoPage.isCustomerInfoPageDisplayed(), "My account - Customer info");
 	}
 
 	@Test
 	public void MyAccount_04_My_Product_Review() {
+		homePage = customerInfoPage.clickToLogoNopCommerce();
 		
+		myProductReviewPage = customerInfoPage.openMyProductReviewsPage(driver);
+		
+
 	}
 
 	@AfterClass
