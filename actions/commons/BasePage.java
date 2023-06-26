@@ -22,7 +22,6 @@ import pageObjects.CustomerInfoPageObject;
 import pageObjects.DownloadableProductsPageObject;
 import pageObjects.MyProductReviewsPageObject;
 import pageObjects.OrdersPageObject;
-import pageObjects.PageGeneratorManager;
 import pageObjects.RewardPointsPageObject;
 import pageUIs.BasePageUI;
 

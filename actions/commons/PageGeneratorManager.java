@@ -1,6 +1,18 @@
-package pageObjects;
+package commons;
 
 import org.openqa.selenium.WebDriver;
+
+import pageObjects.AddressesPageObject;
+import pageObjects.BackInStockSubscriptionsPageObject;
+import pageObjects.ChangePasswordPageObject;
+import pageObjects.CustomerInfoPageObject;
+import pageObjects.DownloadableProductsPageObject;
+import pageObjects.HomePageObject;
+import pageObjects.LoginPageObject;
+import pageObjects.MyProductReviewsPageObject;
+import pageObjects.OrdersPageObject;
+import pageObjects.RegisterPageObject;
+import pageObjects.RewardPointsPageObject;
 
 public class PageGeneratorManager {
 	

@@ -8,8 +8,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import commons.PageGeneratorManager;
 import pageObjects.HomePageObject;
-import pageObjects.PageGeneratorManager;
 import pageObjects.RegisterPageObject;
 
 public class Nopcommerce_01_Register extends BaseTest {
