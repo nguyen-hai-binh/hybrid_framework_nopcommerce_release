@@ -1,4 +1,4 @@
-package com.nopcommerce.register;
+package com.nopcommerce.login;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -12,7 +12,7 @@ import commons.PageGeneratorManager;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
 
-public class Nopcommerce_01_Register extends BaseTest {
+public class Nopcommerce_Register extends BaseTest {
 	private WebDriver driver;
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;

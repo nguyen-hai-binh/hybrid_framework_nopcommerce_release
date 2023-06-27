@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
 import commons.PageGeneratorManager;
-import pageUIs.HomePageUI;
 import pageUIs.LoginPageUI;
 
 public class LoginPageObject extends BasePage {
@@ -25,7 +24,7 @@ public class LoginPageObject extends BasePage {
 		return getElementText(driver, LoginPageUI.ERROR_MESSAGE_EMAIL_ADDRESS);
 	}
 
-	public void inputToEmailAddressTextbox(String emailAddress) {
+	public void enterEmailAddressTextbox(String emailAddress) {
 		waitForElementVisible(driver, LoginPageUI.EMAIL_ADDRESS_TEXTBOX);
 		sendkeyToElement(driver, LoginPageUI.EMAIL_ADDRESS_TEXTBOX, emailAddress);
 	}
@@ -35,14 +34,14 @@ public class LoginPageObject extends BasePage {
 		return getElementText(driver, LoginPageUI.ERROR_MESSAGE);
 	}
 
-	public void inputToPasswordTextbox(String password) {
+	public void enterPasswordTextbox(String password) {
 		waitForElementVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
 		sendkeyToElement(driver, LoginPageUI.PASSWORD_TEXTBOX, password);
 	}
 	
 	public HomePageObject loginAccount (WebDriver driver, String emailAddress, String password) {
-		inputToEmailAddressTextbox(emailAddress);
-		inputToPasswordTextbox(password);
+		enterEmailAddressTextbox(emailAddress);
+		enterPasswordTextbox(password);
 		return clickToLoginButton();
 	}
 }

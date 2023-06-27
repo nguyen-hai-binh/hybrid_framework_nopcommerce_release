@@ -13,7 +13,7 @@ import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
 
-public class Nopcommerce_01_Login extends BaseTest {
+public class Nopcommerce_Login extends BaseTest {
 	private WebDriver driver;
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;
@@ -53,7 +53,7 @@ public class Nopcommerce_01_Login extends BaseTest {
 	@Test
 	public void Login_02_Invalid_Email() {
 		loginPage = homePage.clickToLoginLink();
-		loginPage.inputToEmailAddressTextbox("@34234234");
+		loginPage.enterEmailAddressTextbox("@34234234");
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessageEmailAddress(), "Wrong email");
 	}
@@ -61,7 +61,7 @@ public class Nopcommerce_01_Login extends BaseTest {
 	@Test
 	public void Login_03_Email_Not_Register() {
 		loginPage = homePage.clickToLoginLink();
-		loginPage.inputToEmailAddressTextbox("abc13579@gmail.com");
+		loginPage.enterEmailAddressTextbox("abc13579@gmail.com");
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
 	}
@@ -69,8 +69,8 @@ public class Nopcommerce_01_Login extends BaseTest {
 	@Test
 	public void Login_04_Empty_Password_And_Email_Registered() {
 		loginPage = homePage.clickToLoginLink();
-		loginPage.inputToEmailAddressTextbox(emailAdress);
-		loginPage.inputToPasswordTextbox("");
+		loginPage.enterEmailAddressTextbox(emailAdress);
+		loginPage.enterPasswordTextbox("");
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
@@ -78,8 +78,8 @@ public class Nopcommerce_01_Login extends BaseTest {
 	@Test
 	public void Login_05_Incorrect_Password_And_Email_Registered() {
 		loginPage = homePage.clickToLoginLink();
-		loginPage.inputToEmailAddressTextbox(emailAdress);
-		loginPage.inputToPasswordTextbox("987654321");
+		loginPage.enterEmailAddressTextbox(emailAdress);
+		loginPage.enterPasswordTextbox("987654321");
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
@@ -87,8 +87,8 @@ public class Nopcommerce_01_Login extends BaseTest {
 	@Test
 	public void Login_06_Successfully() {
 		loginPage = homePage.clickToLoginLink();
-		loginPage.inputToEmailAddressTextbox(emailAdress);
-		loginPage.inputToPasswordTextbox(password);
+		loginPage.enterEmailAddressTextbox(emailAdress);
+		loginPage.enterPasswordTextbox(password);
 		homePage = loginPage.clickToLoginButton();
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}

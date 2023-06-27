@@ -1,4 +1,4 @@
-package com.nopcommerce.myacount;
+package com.nopcommerce.login;
 
 import static org.testng.Assert.assertTrue;
 
@@ -20,7 +20,7 @@ import pageObjects.LoginPageObject;
 import pageObjects.MyProductReviewsPageObject;
 import pageObjects.RegisterPageObject;
 
-public class Nopcommerce_01_MyAccount extends BaseTest {
+public class Nopcommerce_MyAccount extends BaseTest {
 	private WebDriver driver;
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;
